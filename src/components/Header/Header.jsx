@@ -11,7 +11,7 @@ function Header() {
       <nav className="navbar">
         <Link to="/">
           <img src={Logo} alt="Logo ArgentBank" className="header__logo"></img>
-          <h1 class="sr-only">Argent Bank</h1>
+          <h1 className="sr-only">Argent Bank</h1>
         </Link>
 
         <div>
