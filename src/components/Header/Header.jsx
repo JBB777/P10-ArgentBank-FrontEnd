@@ -9,8 +9,8 @@ function Header() {
   return (
     <header className="header">
       <nav className="navbar">
-        <Link to="/">
-          <img src={Logo} alt="Logo ArgentBank" className="header__logo"></img>
+        <Link to="/" className="navbar__logo">
+          <img src={Logo} alt="Logo ArgentBank" className="logo"></img>
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
 
