@@ -1,16 +1,39 @@
 import './User.scss';
 import AccountWrapper from '../../components/AccountWrapper/AccountWrapper';
+import Modal from '../../components/Modal/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfil } from '../../redux/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function User() {
+  const token = useSelector((state) => state.profil.token);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Redirection page de connexion si pas connecté
+  useEffect(() => {
+    if (!token) {
+      navigate('/sign-in');
+    }
+  });
+
+  dispatch(getProfil(token)).then((result) => {
+    if (!result.payload) navigate('/sign-in');
+  });
+
+  const firstName = useSelector((state) => state.profil.firstName);
+  const lastName = useSelector((state) => state.profil.lastName);
+
   return (
     <main className="bg-dark">
       <div className="account__header">
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {firstName + ' ' + lastName} !
         </h1>
-        <button className="edit-button">Edit Name</button>
+        <Modal />
       </div>
       <h2 className="sr-only">Accounts</h2>
       <AccountWrapper

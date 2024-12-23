@@ -5,10 +5,12 @@ import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
 import SignIn from './pages/SignIn/SignIn';
 import User from './pages/User/User';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <Router>
         <Header />
         <Routes>
@@ -18,7 +20,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-    </>
+    </Provider>
   );
 }
 
