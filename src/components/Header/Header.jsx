@@ -6,7 +6,7 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import './Header.scss';
 import Logo from '../../assets/argentBankLogo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import logout from '../../redux/userSlice';
+import { logout } from '../../redux/userSlice';
 
 function Header() {
   const username = useSelector((state) => state.profil.pseudo);
@@ -14,10 +14,12 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const disconnection = async () => {
+  const disconnection = async (e) => {
+    e.preventDefault();
     dispatch(logout());
-    sessionStorage.removeItem('argentBankUserToken');
-    navigate('/sign-in');
+    sessionStorage.clear();
+    localStorage.clear();
+    navigate('/');
   };
 
   return (

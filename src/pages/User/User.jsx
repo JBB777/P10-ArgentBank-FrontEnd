@@ -1,15 +1,13 @@
 import './User.scss';
 import AccountWrapper from '../../components/AccountWrapper/AccountWrapper';
 import Modal from '../../components/Modal/Modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProfil } from '../../redux/userSlice';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 function User() {
   const token = useSelector((state) => state.profil.token);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   // Redirection page de connexion si pas connecté
   useEffect(() => {
@@ -18,12 +16,9 @@ function User() {
     }
   });
 
-  dispatch(getProfil(token)).then((result) => {
-    if (!result.payload) navigate('/sign-in');
-  });
-
   const firstName = useSelector((state) => state.profil.firstName);
   const lastName = useSelector((state) => state.profil.lastName);
+  const pseudo = useSelector((state) => state.profil.pseudo);
 
   return (
     <main className="bg-dark">
@@ -31,7 +26,7 @@ function User() {
         <h1>
           Welcome back
           <br />
-          {firstName + ' ' + lastName} !
+          {firstName + ' ' + '`' + pseudo + '`' + ' ' + lastName} !
         </h1>
         <Modal />
       </div>

@@ -1,9 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-/* 
-  Si token présent car remember me coché ?
-  Faire un getProfil où ?
-*/
+import { useSelector } from 'react-redux';
 
 // API call to login using email & password from the signin form
 export const login = createAsyncThunk('profil/login', async (userInfos) => {
@@ -51,9 +47,9 @@ export const getProfil = createAsyncThunk('profil/getProfil', async (token) => {
 // Username update
 export const usernameUpdate = createAsyncThunk(
   'profil/usernameUpdate',
-  async (newUsername, token) => {
-    console.log('nouveau pseudo : ' + newUsername);
-    console.log('token : ' + token);
+  async (newUsername, { getState, rejectWithValue }) => {
+    const state = getState();
+    const token = state.profil.token;
     const username = {
       userName: newUsername,
     };
@@ -71,8 +67,8 @@ export const usernameUpdate = createAsyncThunk(
 
     const data = await apiFetch.json();
     if (apiFetch.ok) {
-      console.log('data.body : ' + data.body);
-      return data.body;
+      //console.log('data.body : ' + data.body);
+      return data;
     } else {
       throw new Error('Erreur lors de la modification du pseudo');
     }

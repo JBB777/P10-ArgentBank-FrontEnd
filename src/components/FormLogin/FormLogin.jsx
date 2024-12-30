@@ -2,7 +2,7 @@ import './FormLogin.scss';
 import Field from '../Field/Field';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../redux/userSlice';
+import { getProfil, login } from '../../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 function FormLogin() {
@@ -14,19 +14,21 @@ function FormLogin() {
   const [remember, setRemember] = useState(false);
   const error = useSelector((state) => state.profil.error);
 
-  const redirect = async (log) => {
-    log.preventDefault();
+  const redirect = async (e) => {
+    e.preventDefault();
 
     const userInfos = {
       username,
       password,
       remember,
     };
-    dispatch(login(userInfos)).then((result) => {
-      if (result.payload) {
-        navigate('/user');
-      }
-    });
+
+    const test = await dispatch(login(userInfos));
+    console.log(test);
+    if (!test.error) {
+      dispatch(getProfil(test.payload.body.token));
+      navigate('/user');
+    }
   };
 
   return (
