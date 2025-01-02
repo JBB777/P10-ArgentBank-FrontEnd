@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
 
 // API call to login using email & password from the signin form
 export const login = createAsyncThunk('profil/login', async (userInfos) => {
@@ -67,7 +66,6 @@ export const usernameUpdate = createAsyncThunk(
 
     const data = await apiFetch.json();
     if (apiFetch.ok) {
-      //console.log('data.body : ' + data.body);
       return data;
     } else {
       throw new Error('Erreur lors de la modification du pseudo');

@@ -24,7 +24,7 @@ function FormLogin() {
     };
 
     const test = await dispatch(login(userInfos));
-    console.log(test);
+
     if (!test.error) {
       dispatch(getProfil(test.payload.body.token));
       navigate('/user');
